@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- Подключение jQuery библиотеки -->
+    <title>Rule34 Gallery!</title>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="На этом сайте, посвящённом правилу R34, вы обнаружите феноменальное творчество и неисчерпаемую фантазию интернет-сообщества.">
+    <meta name="Keywords" content="Rule34 r34 Порно Правило34 Р34 хентай 18+ 34">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="yandex-verification" content="95c1dcd16bf962be"/>
+    <meta name="google-site-verification" content="ZL4XLy1T9DSiqaRga8aGoRPMhRa2sK0WZ_5muSYmAoo"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--Строчка, которая делает магию-->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel=" stylesheet" href="/css/style.css">
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" src="./js/yandexMetrica.js"></script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/95975425" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+    <!-- Hotjar Tracking Code for https://r34hub.ru -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:3812706,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6FSRD5630R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-6FSRD5630R');
+    </script>
+
+</head>
+<body>
+<header id="header">
+    <div class="header" id="header__pre__container">
+        <div class="header__container" id="header__container">
+            <div class="logo">
+                <img src="./img/logo.png" alt="logo"></div>
+            <!--            <div class="header__user" id="header__user">
+                            <p id="header__user_p">Вход</p>
+                                          <img src="./img/userDefaut.png" alt="Аватар" id="header__user__img">
+                        </div>-->
+        </div>
+    </div>
+</header>
+<!-- Контейнер для фотографий -->
+<div class="container blur" id="container">
+    <div class="search">
+    </div>
+    <section>
+        <% result.forEach((post, index) => { %>
+            <article>
+                <div class="card">
+                    <div class="card__user">
+                        <img src="<%= post.imgUser || './img/userDefaut.png' %>">
+                        <span><%= post.nameUser || 'Anonim' %></span>
+                    </div>
+                    <img src="<%= post.imgPost %>" alt="<%= post.imgPost %>" class="photo card__img" loading="lazy">
+                    <div class="card__footer">
+                        <img src="./img/nolike.svg" data-idLike="<%= post.idPost %>" class="like-btn">
+                    </div>
+
+                </div>
+            </article>
+            <% if (index === result.length - 2) { %>
+                <div class="loadMore" id="loadMoreBtn" onclick="loadMorePhotos()">
+                </div>
+            <% } %>
+        <% }); %>
+    </section>
+    <div class="control" id="control__panel">
+        <!--        <a href="#"><img src="./img/phone.svg" alt="phone"></a>-->
+        <a href="/upload"><img src="./img/addImg.svg" alt="addImg"></a>
+        <a href="/"><img src="./img/home.svg" alt="home"></a>
+    </div>
+</div>
+<!--<script src="./js/autch.js"></script>-->
+<script src="./js/welcom.js"></script>
+<!-- Скрипт для отслеживания видимости кнопки "Load More" и загрузки дополнительных фотографий -->
+<script>
+
+    const postObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                console.log('Loading more photos...');
+                var loadMoreBtn = document.getElementById('loadMoreBtn');
+                if (loadMoreBtn) {
+                    loadMoreBtn.remove();
+                    loadMorePhotos();
+                    resetObserver();
+                } else {
+                    console.log("Кажется, это было конечное фото!");
+                }
+            }
+        });
+    });
+
+    function resetObserver() {
+        setTimeout(function () {
+            var loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (loadMoreBtn) {
+                postObserver.observe(loadMoreBtn);
+            } else {
+                console.log("Кажется, это было конечное фото!");
+            }
+        }, 1500);
+    }
+
+    var page = 1;
+    let endPost = 10
+    let firstPost = 0
+
+    function loadMorePhotos() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var container = document.querySelector('.container');
+                container.insertAdjacentHTML('beforeend', xhr.responseText);
+                endPost = endPost + 10;
+                firstPost = firstPost + 10;
+                page++;
+            }
+        };
+
+        var url = `/?page=${page + 1}&endPost=${endPost + 10}&firstPost=${firstPost + 11}`;
+        xhr.open('GET', url, true);
+        xhr.send();
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var loadMoreBtn = document.getElementById('loadMoreBtn');
+        if (loadMoreBtn) {
+            postObserver.observe(loadMoreBtn);
+        }
+    });
+</script>
+<script>
+    // Получаем все элементы с классом 'like-btn'
+    let likeButtons = document.querySelectorAll('.like-btn');
+
+    likeButtons.forEach(item=>{
+        item.addEventListener('click',()=>{
+            item.setAttribute('src','./img/like.svg')
+        })
+    })
+    document.addEventListener("click", function (e) {
+        // Проверяем, является ли целевой элемент кнопкой с классом like-btn
+        if (e.target.classList.contains("like-btn")) {
+            // Меняем атрибут src на ./img/like.svg
+            e.target.src = "./img/like.svg";
+        }
+    });
+
+</script>
+</body>
+</html>

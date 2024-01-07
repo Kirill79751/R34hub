@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>R34 login</title>
+</head>
+<body>
+<form action="/postLogin" method="post">
+    <label>
+        <input type="text" name="login">
+    </label>
+    <label>
+        <input type="text" name="pass">
+    </label>
+    <button type="submit">Отправить</button>
+</form>
+Имя пользователя:<div id="userName">null</div>
+
+</body>
+<script>
+    // Проверка на null перед установкой значения в localStorage
+    let imgUser = '<%= imgUser %>'
+    if (imgUser !== 'none'){
+        localStorage.setItem('auth','done')
+        localStorage.setItem('imgUser',imgUser)
+    }
+    let userNameFromEJS = '<%= userName %>';
+    if (userNameFromEJS !== 'none') {
+        // Устанавливаем значение в localStorage
+        localStorage.setItem("userName", userNameFromEJS);
+    }
+    let userName = localStorage.getItem('userName')
+    if (userName !=='null'){
+        document.getElementById('userName').innerText = `${userName}`
+    }
+    let id = '<%= id %>'
+    if (id !== 'none'){
+        localStorage.setItem('id',id)
+    }
+
+</script>
+</html>

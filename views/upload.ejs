@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- Подключение jQuery библиотеки -->
+    <title>Rule34 Gallery!</title>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="На этом сайте, посвящённом правилу R34, вы обнаружите феноменальное творчество и неисчерпаемую фантазию интернет-сообщества.">
+    <meta name="Keywords" content="Rule34 r34 Порно Правило34 Р34 хентай 18+ 34">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="yandex-verification" content="95c1dcd16bf962be"/>
+    <meta name="google-site-verification" content="ZL4XLy1T9DSiqaRga8aGoRPMhRa2sK0WZ_5muSYmAoo"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--Строчка, которая делает магию-->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel=" stylesheet" href="/css/style.css">
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" src="./js/yandexMetrica.js"></script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/95975425" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+    <!-- Hotjar Tracking Code for https://r34hub.ru -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:3812706,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6FSRD5630R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-6FSRD5630R');
+    </script>
+
+</head>
+<body>
+<header id="header">
+    <div class="header" id="header__pre__container">
+        <div class="header__container" id="header__container">
+            <div class="logo">
+                <img src="./img/logo.png" alt="logo"></div>
+            <!--            <div class="header__user" id="header__user">-->
+            <!--                <p id="header__user_p">Вход</p>-->
+            <!--                &lt;!&ndash;                <img src="./img/userDefaut.png" alt="Аватар" id="header__user__img">&ndash;&gt;-->
+            <!--            </div>-->
+        </div>
+    </div>
+</header>
+<!-- Контейнер для фотографий -->
+<div class="container" id="container">
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label>
+            <div class="img__upload" id="img__upload">
+                <img id="uploadedImg" src="./img/uplodImg.png" alt="Выбрать изображение">
+                <p id="upload__txt">Выбрать изображение</p>
+                <input type="file" required name="uploadImg" id="uploadImgInput" onchange="displayImage()">
+            </div>
+        </label>
+        <label>
+            <input type="text" placeholder="В ведите теги #Love #cat:" id="input__tag" name="tags">
+        </label>
+        <input type="hidden" name="userId" id="userId" value="">
+        <input type="hidden" name="userName" id="userName" value="">
+        <input type="hidden" name="imgUser" id="imgUser" value="">
+        <button type="submit" id="upload__btn">Отправить</button>
+    </form>
+    <div class="control" id="control__panel">
+        <a href="/upload"><img src="./img/addImg.svg" alt="addImg"></a>
+        <a href="/"><img src="./img/home.svg" alt="home"></a>
+    </div>
+</div>
+<script src="./js/autch.js"></script>
+<script>
+    let userId = localStorage.getItem('id')
+    let userName = localStorage.getItem('userName')
+    let imgUser = localStorage.getItem('imgUser')
+    document.getElementById("userId").value = userId;
+    document.getElementById("userName").value = userName;
+    document.getElementById("imgUser").value = imgUser;
+</script>
+<script>
+    function displayImage() {
+        var input = document.getElementById('uploadImgInput');
+        var img = document.getElementById('uploadedImg');
+
+        var file = input.files[0];
+
+        if (file) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                img.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+            document.getElementById('img__upload').style.background = 'none'
+            document.getElementById('upload__txt').remove()
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+</head>
+<body>
+<h1>Photo Gallery</h1>
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="photo" accept="image/*" required>
+    <button type="submit">Upload Photo</button>
+</form>
+<hr>
+<h2>Photo Feed</h2>
+<div>
+    <div class="container">
+
+        <div class="card">
+            <img src="../public/uploads/file1.jpg" alt="">
+            <a href="https://www.patreon.com/ru-RU">
+                Patreon
+            </a>
+        </div>
+    </div>
+
+</div>
+</body>
+<style>
+    body {
+        background: #121212;
+    }
+    a {
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #9da1aa;
+        text-decoration: none;
+
+    }
+    .container {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .card {
+        width: 95%;
+        margin: 40px auto;
+        background: #1B1B1B;
+        border-radius: 10px;
+    }
+    .card img {
+        width: 100%;
+        border-radius: 10px;
+    }
+</style>
+</html>
